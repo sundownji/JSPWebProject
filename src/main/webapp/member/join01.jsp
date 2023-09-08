@@ -478,9 +478,11 @@
 				회사의 개인정보보호정책은 관련 법률 및 고시의 변경 또는 내부 운영방침의 변경에 따라 변경될 수 있습니다. 회사의 개인정보보호정책이 수정될 경우 변경된 사항은 홈페이지를 통하여 공지합니다. <br />
 				</div>
 
-				<form action="join02.jsp" id="agreeform"><p style="text-align:center; margin-bottom:20px;"><input type="checkbox" name="agreement1" value="" id="agreement1">이용약관과 개인정보취급방침에 동의합니다.</p>
+				<form action="join02.jsp" id="agreeform"><p style="text-align:center; margin-bottom:20px;">
+					<input type="checkbox" name="agreement1" value="" id="agreement1">이용약관과 개인정보취급방침에 동의합니다.</p>
 				
-				<p style="text-align:center; margin-bottom:20px"><input type="image" src="../images/btn01.gif" /></a>&nbsp;&nbsp;<a href="#"><img src="../images/btn02.gif" /></a></p></form>
+					<p style="text-align:center; margin-bottom:20px">
+					<input type="image" src="../images/btn01.gif" />&nbsp;&nbsp;<a href="../main/main.tj"><img src="../images/btn02.gif" /></a></p></form>
 			
 			<script>
 			document.getElementById('agreeform').onsubmit = function (){

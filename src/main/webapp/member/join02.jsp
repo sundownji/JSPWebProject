@@ -22,7 +22,7 @@
 
 				<p class="join_title"><img src="../images/join_tit03.gif" alt="회원정보입력" /></p>
 				
- 			<form action="registinf.jsp" name="registform" method="post" onsubmit="return formValidate(this);">
+ 			<form action="registinf.jsp" name="joinform" method="post" onsubmit="return formValidate(this);">
 				<table cellpadding="0" cellspacing="0" border="0" class="join_box">
 					<colgroup>
 						<col width="80px;" />
@@ -31,7 +31,7 @@
 
 					<tr>
 						<th><img src="../images/join_tit002.gif" /></th>
-						<td><input type="text" name="id"  value="" class="join_input" />&nbsp;<input type="image" src="../images/btn_idcheck.gif" onclick="id_check_person(this.form);" style="cursor:hand;" alt="중복확인"/></a>&nbsp;&nbsp;<span>* 4자 이상 12자 이내의 영문/숫자 조합하여 공백 없이 기입</span></td>	
+						<td><input type="text" name="id"  value="" class="join_input" />&nbsp;<a onclick="id_check_person(joinform);" style="cursor:hand;"><img src="../images/btn_idcheck.gif" alt="중복확인"/></a>&nbsp;&nbsp;<span>* 4자 이상 12자 이내의 영문/숫자 조합하여 공백 없이 기입</span></td>	
 					</tr>
 					<tr>
 						<th><img src="../images/join_tit003.gif" /></th>
@@ -97,7 +97,7 @@
 
 				<p style="text-align:center; margin-bottom:20px"><input type="image" src="../images/btn01.gif" a href="" />&nbsp;&nbsp;
 				<input type="reset" class="reset_btn">&nbsp;&nbsp;
-				<a href="../main/main.jsp"><img src="../images/btn02.gif" /></a>
+				<a href="../main/main.tj"><img src="../images/btn02.gif" /></a>
 				 </p>
 				
 			</form>

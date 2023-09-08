@@ -58,25 +58,25 @@ function findPwForm(fr){
 				</div>
 				
 				<div class="idpw_box">
-				<form method="post" name="id_find_Frm" onsubmit="return findIdForm(this);">
+				<form action="idFindResult.jsp" method="post" name="id_find_Frm" onsubmit="return findIdForm(this);">
 					<div class="id_box">
 						<ul style="left:70px";>
 							<li><input type="text" name="name" value="" class="login_input01" /></li>
 							<li><input type="text" name="email" value="" class="login_input01" /></li>
 						</ul>
-						<a href="../member/idPwFindResult.jsp"><input type="image" src="../images/member/id_btn01.gif" class="id_btn" style="left:270px" /></a>
+						<a href=""><input type="image" src="../images/member/id_btn01.gif" class="id_btn" style="left:270px" /></a>
 						<a href="../member/join01.jsp"><img src="../images/login_btn03.gif" class="id_btn02" /></a>
 					</div>
 				</form>
 				</div>
-				<form action="" method="post" name="pw_find_Frm" onsubmit="return findPwForm(this);">
-					<div class="pw_box">
+				<div class="pw_box">
+					<form action="pwFindResult2.jsp" method="post" name="pw_find_Frm" onsubmit="return findPwForm(this);">
 						<ul style="left:70px";>
 							<li><input type="text" name="id" value="" class="login_input01" /></li>
-							<li><input type="text" name="name1" value="" class="login_input01" /></li>
-							<li><input type="text" name="email1" value="" class="login_input01" /></li>
+							<li><input type="text" name="name" value="" class="login_input01" /></li>
+							<li><input type="text" name="email" value="" class="login_input01" /></li>
 						</ul>
-						<a href="idPwFindResult.jsp"><input type="image" src="../images/member/id_btn01.gif" class="pw_btn" style="top:100px; left:270px" /></a>
+						<a href=""><input type="image" src="../images/member/id_btn01.gif" class="pw_btn" style="top:100px; left:270px" /></a>
 					</div>
 				</form>
 				</div>

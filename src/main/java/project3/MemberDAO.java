@@ -82,8 +82,8 @@ public class MemberDAO extends JDBConnect{
 	}
 	
 	//아이디찾기
-	public String findId(String name, String email) {
-		String mid = null;
+	public MemberDTO findId(String name, String email) {
+		MemberDTO dto = new MemberDTO();
 		
 		try {
 			String sql = " SELECT id FROM regist_member WHERE name=? AND email=?";
@@ -95,21 +95,21 @@ public class MemberDAO extends JDBConnect{
 					rs = psmt.executeQuery();
 					
 					if(rs.next()) {
-						mid = rs.getString("id");
+					dto.setId(rs.getString("id"));	
 					}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return mid;
+		return dto;
 	}
 	
 	//비밀번호 찾기
-	public String findId(String id, String name, String email) {
-		String mid = null;
+	public MemberDTO findPW(String id, String name, String email) {
+		MemberDTO findP = new MemberDTO();
 		
 		try {
-			String sql = " SELECT * FROM regist_member WHERE id=?, name=? AND email=?";
+			String sql = " SELECT * FROM regist_member WHERE id=? AND name=? AND email=?";
 					
 					psmt = con.prepareStatement(sql);
 					psmt.setString(1, id);
@@ -119,12 +119,12 @@ public class MemberDAO extends JDBConnect{
 					rs = psmt.executeQuery();
 					
 					if(rs.next()) {
-						mid = rs.getString("member_mid");
+						findP.setPass(rs.getString("pass"));
 					}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return mid;
+		return findP;
 	}
 }

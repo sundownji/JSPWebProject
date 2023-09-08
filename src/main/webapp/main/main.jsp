@@ -108,7 +108,7 @@ if(!loginId.equals("")){
 				<!--공지사항 게시물 4개  -->
 				<ul class="main_board_list">
 				<c:forEach items="${notice }" var="row">
-					<li><p><a href="../space/sub01view.jsp?tname=notice_board&num=${row.num }">${row.title }</a><span>${row.postdate }</span></p></li>
+					<li><p style="width:230px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis"><a href="../space/sub01view.jsp?tname=notice_board&num=${row.num }">${row.title }</a><span>${row.postdate }</span></p></li>
 											
 				</c:forEach>
 				</ul>
@@ -117,7 +117,7 @@ if(!loginId.equals("")){
 				<p class="main_title"><img src="../images/main_title03.gif" alt="자유게시판 FREE BOARD" /><a href="../space/sub01list.jsp?tname=free_board"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
 				<ul class="main_board_list">
 				<c:forEach items="${free }" var="dto">
-					<li><p><a href="../space/sub01view.jsp?tname=free_board&num=${dto.num}">${dto.title }</a><span>${dto.postdate }</span></p></li>
+					<li><p style="width:230px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis"><a href="../space/sub01view.jsp?tname=free_board&num=${dto.num}">${dto.title }</a><span>${dto.postdate }</span></p></li>
 				</c:forEach>
 				</ul>
 			</div>

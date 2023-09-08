@@ -34,15 +34,21 @@ String tname = request.getParameter("tname");
 				<%
 				}
 				else if (tname.equals("program_board")){
-					
-				
 				%>
+					<img src="../images/space/sub02_title.gif" alt="프로그램일정" class="con_title" />
+					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;프로그램일정<p>
 				<%
 				}
 				else if (tname.equals("free_board")) {
 				%>
 					<img src="../images/space/sub03_title.gif" alt="자유게시판" class="con_title" />
 					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;자유게시판<p>
+				<%
+				}
+				else if (tname.equals("info_board")) {
+				%>
+					<img src="../images/space/sub05_title.gif" alt="정보자료실" class="con_title" />
+					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;정보자료실<p>
 				<%
 				}
 				%>				
@@ -53,7 +59,7 @@ String tname = request.getParameter("tname");
 <!-- 게시판 들어가는 부분 (시작) -->
   <!-- 검색폼 -->
     <form method="get">  
-    <table class="table" width="90%">
+    <table class="table" width="90%"  >
 	<input type="hidden" name="tname" value="<%= tname %>" />
     <tr>
         <td align="center">
@@ -68,7 +74,7 @@ String tname = request.getParameter("tname");
     </table>
     </form>
     <table width="90%" class="table table-bordered table-hover">
-        <tr class="text-center">
+        <tr class="text-center" >
             <th width="10%">번호</th>
             <th width="50%">제목</th>
             <th width="15%">작성자</th>
@@ -102,11 +108,11 @@ else {
     	virtualNum = totalCount - (((pageNum - 1) * pageSize) 
     			+ countNum++);
 %>
-<tr align="center">
+<tr align="center" >
     <td><%= virtualNum %></td>
-    <td align="left"> 
-        <a href="sub01view.jsp?tname=<%= tname %>&num=<%= dto.getNum() %>&virtualNum=<%=virtualNum%>" style="text-decoration:none;">
-        	<%= dto.getTitle() %></a> 
+    <td align="left"; > 
+       <p style= "width:230px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis"><a href="sub01view.jsp?tname=<%= tname %>&num=<%= dto.getNum() %>&virtualNum=<%=virtualNum%>"style="text-decoration:none;">
+        	<%= dto.getTitle() %></a></p> 
     </td>
     <td align="center"><%= dto.getId() %></td>
     <td align="center"><%= dto.getVisitcount() %></td>
@@ -121,7 +127,7 @@ else {
         <tr align="right">
         	<td align="center">
         	<%= BoardPage.pagingImg(totalCount, pageSize,
-                       blockPage, pageNum, request.getRequestURI()) %>
+                       blockPage, pageNum, request.getRequestURI(),tname) %>
         	</td>
         	<%
         		if (tname.equals("notice_board")){

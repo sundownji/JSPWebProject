@@ -26,7 +26,7 @@ boolean isExist = dao.idCheck(id);
         //opener속성을 통해 부모창의 DOM을 선택할 수 있다. 
         //사용가능한 아이디를 부모창으로 전송한다.
         //현재 문서(document)의 폼인 오버랩 하위에 리타입 아이디 벨류를 부모창 opener로 보냄
-        opener.document.registform.id.value = document.overlapFrm.retype_id.value;
+        opener.document.joinform.id.value = document.overlapFrm.retype_id.value;
         //팝업창을 닫는다.
         self.close();
     }

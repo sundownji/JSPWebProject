@@ -43,7 +43,7 @@ if(memberDTO.getId() != null){
 /* 	out.println("<script> alert('로그인 성공일 걸?'); </script>");
 	System.out.println("로그인 성공해라.");
 	response.sendRedirect("../main/main.jsp"); */
-	JSFunction.alertLocation("로그인에 성공했습니다.", "../main/main.jsp", out);
+	JSFunction.alertLocation("로그인에 성공했습니다.", "../main/main.tj", out);
 }
 else{
 	

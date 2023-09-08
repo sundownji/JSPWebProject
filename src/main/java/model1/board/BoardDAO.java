@@ -143,7 +143,7 @@ public class BoardDAO extends JDBConnect {
             psmt = con.prepareStatement(query);
             psmt.setString(1, num);   
             rs = psmt.executeQuery();
-            System.out.println("test");
+         
             /*
             일련번호는 중복되지 않으므로 단 한개의 게시물만 인출하게된다. 
             따라서 while문이 아닌 if문으로 처리한다. next() 메서드는 
