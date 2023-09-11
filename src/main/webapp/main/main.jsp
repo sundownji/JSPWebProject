@@ -38,7 +38,7 @@ String loginId = CookieManager.readCookie(request,"loginId");
 //아이디저장 체크박스에 체크를 하기 위한 변수 생성
 String cookieCheck = "";
 if(!loginId.equals("")){
-	/* 앞에서 읽은 쿠키값이 있다면 체크박스에 check 속성을 부여한다.
+	/* 앞에서 읽은 쿠키값이 있다면 체크박스에 check 속성을 부여한다.0
 	그러면 체크된 상태로 로드된다. */
 	cookieCheck = "checked";
 }

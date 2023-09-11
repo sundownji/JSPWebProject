@@ -21,6 +21,12 @@ function validateForm(form) {
         form.content.focus();
         return false;
     }
+	if (form.ofile.value == ""){
+		alert("첨부파일은 필수 입력입니다.")
+		return false;
+		}	
+   	
+
 }
 </script>
 
@@ -37,17 +43,33 @@ function validateForm(form) {
 			</div>
 			<div class="right_contents">
 				<div class="top_title">
-				<% if(tname.equals("notice_board")) { %>            
-				   <img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
-				   <p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
-				<% } else if(tname.equals("free_board")) { %>
-				   <img src="../images/space/sub03_title.gif" alt="자유게시판" class="con_title" />
-				   <p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;자유게시판<p>
-				<% } %>
+				<% 
+					if(tname.equals("notice_board")) { %>            
+				  	 	<img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
+				   	 	<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
+				<% }
+					else if(tname.equals("program_board")) {%>
+				    <img src="../images/space/sub02_title.gif" alt="프로그램일정" class="con_title" />
+			   		<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;프로그램일정<p>
+				<% }
+					else if(tname.equals("free_board")) { %>
+				   		<img src="../images/space/sub03_title.gif" alt="자유게시판" class="con_title" />
+				   		<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;자유게시판<p>
+				<% }
+					else if(tname.equals("photo_board")) {%>
+					    <img src="../images/space/sub04_title.gif" alt="사진게시판" class="con_title" />
+				   		<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;사진게시판<p>
+				<% }
+					else if(tname.equals("info_board")) {%>
+				    <img src="../images/space/sub05_title.gif" alt="정보자료실" class="con_title" />
+			   		<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;정보자료실<p>
+				<% 
+				}
+				%>
 				</div>
 				<div>
 <!-- 게시판 들어가는 부분 (시작) -->
-<form name="writeFrm" method="post" action="WriteProcess.jsp"
+<form name="writeFrm" method="post" action="WriteProcess.jsp" enctype="multipart/form-data"
       onsubmit="return validateForm(this);">
 	<input type="hidden" name="tname" value="<%= tname %>" />
     <table class="table table-bordered" width="90%">
@@ -57,6 +79,18 @@ function validateForm(form) {
                 <input type="text" name="title" style="width: 90%;" />
             </td>
         </tr>
+        <%
+        if(tname.equals("info_board")|| tname.equals("photo_board")){
+        %>
+        <tr>
+         	<td>첨부파일</td>
+         	<td>
+         		<input type="file" name="ofile" />
+        	</td>
+        </tr>
+        <%
+        }
+        %>
         <tr>
             <td>내용</td>
             <td>
@@ -70,6 +104,7 @@ function validateForm(form) {
                 <button type="button" onclick="location.href='./sub01List.jsp?tname=<%=tname%>';">목록 보기</button>
             </td>
         </tr>
+       
     </table>
 </form>
 <!-- 게시판 들어가는 부분 (끝) -->

@@ -8,7 +8,7 @@
 .con_box{padding:0px 15px;}
 
 /*center*/
-.con_tit{padding-bottom:12px;}
+.con_tit{padding-top:12px; padding-bottom:12px;}
 .con_img{margin-bottom:30px;}
 .con_table{width:700px; text-align:center; border-top:2px solid #61bfbf; border-left:1px solid #c5e5e5; margin-bottom:20px;}
 .con_table th{border-bottom:1px solid #c5e5e5; border-right:1px solid #c5e5e5; background:#eaf4f5; padding:5px; color:#32768b;}

@@ -13,6 +13,12 @@ public class BoardDTO {
     private String name;
     
     private String tname;
+
+    //파일첨부형 테이블 
+    private String pass;
+	private String ofile;
+	private String sfile;
+	private int downcount; //다운로드 카운트 int형
     
     //특별한 이유가 없다면 생성자는 선언하지 않는다. 
 
@@ -64,6 +70,30 @@ public class BoardDTO {
 	}
 	public void setTname(String tname) {
 		this.tname = tname;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	public String getOfile() {
+		return ofile;
+	}
+	public void setOfile(String ofile) {
+		this.ofile = ofile;
+	}
+	public String getSfile() {
+		return sfile;
+	}
+	public void setSfile(String sfile) {
+		this.sfile = sfile;
+	}
+	public int getDowncount() {
+		return downcount;
+	}
+	public void setDowncount(int downcount) {
+		this.downcount = downcount;
 	}
     
     
