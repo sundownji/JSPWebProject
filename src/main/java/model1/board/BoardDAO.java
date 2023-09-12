@@ -10,6 +10,7 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServlet;
 
 
+
 //JDBC를 이용한 DB연결을 위해 클래스 상속
 public class BoardDAO extends JDBConnect {
 
@@ -179,9 +180,45 @@ public class BoardDAO extends JDBConnect {
 				dto.setPostdate(rs.getDate("postdate"));
 				dto.setId(rs.getString("id"));
 				dto.setVisitcount(rs.getString("visitcount"));
-				dto.setName(rs.getString("name"));
+		
+
+			}
+		} catch (Exception e) {
+			System.out.println("게시물 상세보기 중 예외 발생");
+			e.printStackTrace();
+		}
+
+		return dto;
+	}
+	//
+	public BoardDTO selectViewWithFile(String num, String tname) {
+		// 하나의 레코드를 저장하기 위한 DTO객체 생성
+		BoardDTO dto = new BoardDTO();
+
+		/*
+		 * 내부조인(inner join)을 통해 member테이블의 name컬럼까지 select 한다.
+		 */
+		String query = "SELECT B.*, M.name " + " FROM regist_member M INNER JOIN " + tname + " B " + " ON M.id=B.id "
+				+ " WHERE num=? ";
+		try {
+			// 쿼리문의 인파라미터를 설정한 후 쿼리문 실행
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, num);
+			rs = psmt.executeQuery();
+
+			/*
+			 * 일련번호는 중복되지 않으므로 단 한개의 게시물만 인출하게된다. 따라서 while문이 아닌 if문으로 처리한다. next() 메서드는
+			 * ResultSet으로 반환된 게시물을 확인해서 존재하면 true를 반환해준다.
+			 */
+			if (rs.next()) {
+				dto.setNum(rs.getString("num"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setPostdate(rs.getDate("postdate"));
+				dto.setId(rs.getString("id"));
+				dto.setVisitcount(rs.getString("visitcount"));
 				dto.setOfile(rs.getString("ofile"));
-				dto.setSfile(rs.getString("rfile"));
+				dto.setSfile(rs.getString("sfile"));
 
 			}
 		} catch (Exception e) {
@@ -211,7 +248,7 @@ public class BoardDAO extends JDBConnect {
 
 	// 게시물 수정하기
 	public int updateEdit(BoardDTO dto, String tname) {
-		int result = 0;
+		int affected = 0;
 		try {
 			// 특정 일련번호에 해당하는 게시물을 수정한다.
 			String query = "UPDATE " + tname + " SET " + " title=?, content=? " + " WHERE num=?";
@@ -222,17 +259,45 @@ public class BoardDAO extends JDBConnect {
 			psmt.setString(3, dto.getNum());
 
 			// 수정된 레코드의 갯수를 반환한다.
-			result = psmt.executeUpdate();
+			affected = psmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("게시물 수정 중 예외 발생");
 			e.printStackTrace();
 		}
 
-		return result;
+		return affected;
 	}
 	
+	//게시물 수정하기. 첨부파일까지 포함되어있음
+		public int updatewithFile(BoardDTO dto,String tname) {
+			int affected = 0;
+			try {
+				//쿼리문 템플릿 준비
+				String query ="UPDATE "+ tname
+							+" SET title=?, content=?, ofile=?, sfile=? " + " WHERE num=?";
+				/* 서블릿 게시판은 비회원제이므로 게시물 수정시 일련번호뿐만 아니라 패스워드까지 조건절로 추가한다. 
+				 	따라서 패스워드가 일치하지 않는다면 게시물은 수정되지 않는다.*/
+				
+				//쿼리문의 인파리미터 준비
+				psmt = con.prepareStatement(query);
+				psmt.setString(1, dto.getTitle());
+				psmt.setString(2, dto.getContent());
+				psmt.setString(3, dto.getOfile());
+				psmt.setString(4, dto.getSfile());
+				psmt.setString(5, dto.getNum());
+		
+				
+				affected = psmt.executeUpdate();
+			}
+			catch (Exception e) {
+				System.out.println("게시물 수정 중 예외 발생");
+				e.printStackTrace();
+			}
+			return affected;
+		}
+	
 	public void downCountPlus(String idx, String tname) {
-		String sql ="UPDATE mvcboard SET "
+		String sql ="UPDATE " +tname+ "SET "
 				+ " downcount= downcount+1 "
 				+ " WHERE idx =? ";
 		try {
@@ -242,25 +307,7 @@ public class BoardDAO extends JDBConnect {
 		}
 		catch(Exception e) {}
 	}
-	/*
-	 * // 첨부파일 게시물 수정하기 public int updateEditWithFile(BoardDTO dto, String tname) {
-	 * //게시물 수정하기. 첨부파일까지 포함되어있음
-	 * 
-	 * int result = 0; try { //쿼리문 템플릿 준비 String query ="UPDATE mvcboard"
-	 * +" SET title=?, name=?, content=?, ofile=?, sfile=? "
-	 * +" WHERE idx=? and pass=?"; 서블릿 게시판은 비회원제이므로 게시물 수정시 일련번호뿐만 아니라 패스워드까지 조건절로
-	 * 추가한다. 따라서 패스워드가 일치하지 않는다면 게시물은 수정되지 않는다.
-	 * 
-	 * //쿼리문의 인파리미터 준비 psmt = con.prepareStatement(query); psmt.setString(1,
-	 * dto.getTitle()); psmt.setString(2, dto.getName()); psmt.setString(3,
-	 * dto.getContent()); psmt.setString(4, dto.getOfile()); psmt.setString(5,
-	 * dto.getSfile()); psmt.setString(6, dto.getIdx()); psmt.setString(7,
-	 * dto.getPass());
-	 * 
-	 * result = psmt.executeUpdate(); } catch (Exception e) {
-	 * System.out.println("게시물 수정 중 예외 발생"); e.printStackTrace(); } return result; }
-	 * }
-	 */
+
 
 	// 게시물 삭제하기
 	public int deletePost(BoardDTO dto, String tname) {
@@ -287,42 +334,46 @@ public class BoardDAO extends JDBConnect {
 		/*
 		 * 검색조건에 일치하는 게시물을 얻어온 후 각 페이지에 출력할 구간까지 설정한 서브 쿼리문 작성
 		 */
-		String query = " SELECT * FROM ( " + "    SELECT Tb.*, ROWNUM rNum FROM ( " + "        SELECT * FROM "
-				+ map.get("tname");
-		// 검색어가 있는 경우에만 where절을 추가한다.
-		if (map.get("searchWord") != null) {
-			query += " WHERE " + map.get("searchField") + " LIKE '%" + map.get("searchWord") + "%' ";
-		}
+		String query = " SELECT * FROM ( " 
+					+ "    SELECT Tb.*, ROWNUM rNum FROM ( " 
+					+ "        SELECT * FROM "
+					+ map.get("tname");
+					// 검색어가 있는 경우에만 where절을 추가한다.
+					if (map.get("searchWord") != null) {
+						query += " WHERE " + map.get("searchField") + " LIKE '%" + map.get("searchWord") + "%' ";
+					}
 		/*
 		 * 게시물의 구간을 결정하기 위해 between 혹은 비교연산자를 사용할 수 있다. 아래의 where절은 rNum>? 과 같이 변경할수있다.
 		 */
-		query += "      	ORDER BY num DESC " + "     ) Tb " + " ) " + " WHERE rNum BETWEEN ? AND ?";
+			query += "      	ORDER BY num DESC " 
+					+ "     ) Tb " + " ) " 
+					+ " WHERE rNum BETWEEN ? AND ?";
 
-		try {
-			// 인파라미터가 있는 쿼리문으로 prepared객체 생성
-			psmt = con.prepareStatement(query);
-			// 인파라미터 설정
-			psmt.setString(1, map.get("start").toString());
-			psmt.setString(2, map.get("end").toString());
-			// 쿼리문 실행 및 ResultSet반환
-			rs = psmt.executeQuery();
-			while (rs.next()) {
-				BoardDTO dto = new BoardDTO();
-
-				dto.setNum(rs.getString("num"));
-				dto.setTitle(rs.getString("title"));
-				dto.setContent(rs.getString("content"));
-				dto.setPostdate(rs.getDate("postdate"));
-				dto.setId(rs.getString("id"));
-				dto.setVisitcount(rs.getString("visitcount"));
-
-				bbs.add(dto);
+			try {
+				// 인파라미터가 있는 쿼리문으로 prepared객체 생성
+				psmt = con.prepareStatement(query);
+				// 인파라미터 설정
+				psmt.setString(1, map.get("start").toString());
+				psmt.setString(2, map.get("end").toString());
+				// 쿼리문 실행 및 ResultSet반환
+				rs = psmt.executeQuery();
+				while (rs.next()) {
+					BoardDTO dto = new BoardDTO();
+	
+					dto.setNum(rs.getString("num"));
+					dto.setTitle(rs.getString("title"));
+					dto.setContent(rs.getString("content"));
+					dto.setPostdate(rs.getDate("postdate"));
+					dto.setId(rs.getString("id"));
+					dto.setVisitcount(rs.getString("visitcount"));
+	
+					bbs.add(dto);
+				}
+			} catch (Exception e) {
+					System.out.println("게시물 조회 중 예외 발생");
+					e.printStackTrace();
+				}
+		
+				return bbs;
 			}
-		} catch (Exception e) {
-			System.out.println("게시물 조회 중 예외 발생");
-			e.printStackTrace();
-		}
-
-		return bbs;
-	}
 }

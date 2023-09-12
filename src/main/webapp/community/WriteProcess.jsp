@@ -14,7 +14,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ include file = "./IsLoggedIn.jsp" %>  
+ <%@ include file = "../space/IsLoggedIn.jsp" %>  
 <!-- 로그인 페이지에 오랫동안 머물러 세션이 삭제되는 경우가 있으므로
 글쓰기 처리 페이지에서도 반드시 로그인을 확인해야한다.  -->    
  
@@ -67,14 +67,8 @@ for (Part filePart : fileParts) {
 
 BoardDAO dao = new BoardDAO(application);
 
-int iResult = 0;
-//기존과 같이 게시물 1개를 등록할때 사용..
-if (tname.equals("free_board") || tname.equals("notice_board")){
-	iResult = dao.insertWrite(dto,tname);
-}
-else if (tname.equals("photo_board") || tname.equals("info_board")){
-	iResult = dao.insertWriteWithFile(dto,tname);
-}
+	int iResult = dao.insertWriteWithFile(dto,tname);
+
 
 
 /* int iResult = 0;
@@ -92,7 +86,7 @@ dao.close();
 
 if (iResult == 1) {
 	//글쓰기에 성공했다면 목록으로 이동한다. 
-    response.sendRedirect("sub01list.jsp?tname="+tname);
+    response.sendRedirect("sub01.jsp?tname="+tname);
 } 
 else {
 	//실패했다면 경고창(alert)을 띄우고, 뒤로(history) 이동한다. 

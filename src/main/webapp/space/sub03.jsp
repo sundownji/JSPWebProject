@@ -171,8 +171,8 @@ else {
     <table class="table" width="90%">
         <tr align="right">
         	<td align="center">
-        	<%= BoardPage.pagingImg(totalCount, pageSize,
-                       blockPage, pageNum, request.getRequestURI()) %>
+        	<%= BoardPage.pagingImg(totalCount, pageSize, blockPage, pageNum, request.getRequestURI(),tname)%>
+    
         	</td>
             <td><button type="button" onclick="location.href='sub01write.jsp';" class="btn btn-danger" >글쓰기
                 </button></td>

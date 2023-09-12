@@ -20,13 +20,7 @@ BoardDAO dao = new BoardDAO(application);
 
 dao.updateVisitCount(num,tname);
 //게시물의 내용을 인출하여 DTO에 저장한다. 
-BoardDTO dto = new BoardDTO();
+BoardDTO dto = dao.selectViewWithFile(num, tname);
 
-if (tname.equals("free_board") || tname.equals("notice_board")){ 
-		dto = dao.selectView(num,tname);
-}
-else if (tname.equals("photo_board") || tname.equals("info_board")){
-		dto = dao.selectViewWithFile(num, tname);
-}
 dao.close();
 %>

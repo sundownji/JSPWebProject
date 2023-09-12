@@ -6,7 +6,6 @@
 
 <%@ include file="./viewCommon.jsp" %>
 
-<% System.out.println("나와..."+dto.getSfile()); %>
 <script>
 //삭제를 위해 폼값만 전달하는 녀석
 //게시물 삭제를 위한 Javascript 함수
@@ -107,11 +106,9 @@ function deletePost() {
             <td colspan="3" height="100">
             	<!-- 입력시 줄바꿈을 위한 엔터는 \r\n으로 입력되므로 
             	웹	브라우저에 출력시에는 <br>태그로 변경해야한다. -->
-                <%= dto.getContent().replace("\r\n", "<br/>") %> 
-                
-                <% if (tname.equals("photo_board")){%>
+                <%= dto.getContent().replace("\r\n", "<br/>") %> <% if (tname.equals("photo_board")){%>
                 <br />
-                <img width="200" style="margin-top:30px; margin-bottom:30px;" id="prvimg" src="../Uploads/<%=dto.getSfile() %>" alt="" />
+                <img style="width:100%; height:200px; margin-top:30px; margin-bottom:30px;" id="prvimg" src="../Uploads/<%=dto.getSfile() %>" alt="" />
                 <% }  %>
             </td> 
         </tr>

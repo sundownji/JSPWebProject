@@ -61,8 +61,8 @@ if(!loginId.equals("")){
     				로그인 폼을 웹브라우저에 출력한다.*/
 				    if (session.getAttribute("UserId") == null) { 
 				    %>
-				<form action="../member/LoginProcess.jsp" method="post" name="loginFrm" onsubmit="return validateForm(this);">
-					<table cellpadding="0" cellspacing="0" border="0">
+					<form action="../member/LoginProcess.jsp" method="post" name="loginFrm" onsubmit="return validateForm(this);">
+						<table cellpadding="0" cellspacing="0" border="0">
 					
 						<colgroup>
 							<col width="45px" />
@@ -222,7 +222,7 @@ if(!loginId.equals("")){
 				</div>
 			</div>
 			<div class="main_con_right">
-				<p class="main_title"><img src="../images/main_title06.gif" alt="사진게시판 PHOTO BOARD" /><a href="/space/sub04.jsp"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
+				<p class="main_title"><img src="../images/main_title06.gif" alt="사진게시판 PHOTO BOARD" /><a href="../space/sub01list.jsp?tname=photo_board"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
 				<ul class="main_photo_list">
 					<li>
 						<dl>

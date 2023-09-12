@@ -7,7 +7,7 @@ String tname = request.getParameter("tname");
 
 %>
 
-<%@ include file="./ListCommon.jsp" %>
+<%@ include file="../space/ListCommon.jsp" %>
     
     
 <%@ include file="../include/global_head.jsp" %>
@@ -27,39 +27,22 @@ String tname = request.getParameter("tname");
 			<div class="right_contents">
 				<div class="top_title">
 				<%
-				if (tname.equals("notice_board")){
+				if (tname.equals("employee_board")){
 				%>
-					<img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
+					<img src="../images/community/sub01_title.gif" alt="직원자료실" class="con_title" />
+					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;커뮤니티&nbsp;>&nbsp;직원자료실<p>
 				<%
 				}
-				else if (tname.equals("program_board")){
+				else if (tname.equals("protector_board")){
 				%>
 					<img src="../images/space/sub02_title.gif" alt="프로그램일정" class="con_title" />
 					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;프로그램일정<p>
 				<%
 				}
-				else if (tname.equals("free_board")) {
-				%>
-					<img src="../images/space/sub03_title.gif" alt="자유게시판" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;자유게시판<p>
-				<%
-				}
-				else if (tname.equals("photo_board")) {
-				%>
-					<img src="../images/space/sub04_title.gif" alt="사진게시판" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;사진게시판<p>
-				<%
-				}
-				else if (tname.equals("info_board")) {
-				%>
-					<img src="../images/space/sub05_title.gif" alt="정보자료실" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;정보자료실<p>
-				<%
-				}
 			
-				%>				
-		
+				%>
+			
+				
 				
 				</div>
 				<div>
@@ -115,6 +98,8 @@ else {
     	virtualNum = totalCount - (((pageNum - 1) * pageSize) 
     			+ countNum++);
 %>
+
+
 <tr align="center" >
     <td><%= virtualNum %></td>
     <td align="left"; > 

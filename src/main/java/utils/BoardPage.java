@@ -95,9 +95,10 @@ public class BoardPage {
         /*
         pageTemp가 1이 아닐때만, 즉 첫번째 블럭이 아닐때만 이전블록
         바로가기 링크를 화면에 출력한다. 
+        /JSPWebProject/src/main/webapp/images/
          */
         if (pageTemp != 1) {
-            pagingStr += "<a href='" + reqUrl + "?tname="+tname+"&pageNum=1'><img src='../images/paging1.gif'></a>";            
+            pagingStr += "<a href='" + reqUrl + "?tname="+tname+"&pageNum=1'><img src='../images/free-icon-left-arrow-271220.png'></a>";            
             pagingStr += "&nbsp;";
             pagingStr += "<a href='" + reqUrl + "?tname="+tname+"&pageNum=" + (pageTemp - 1)
                          + "'><img src='../images/paging2.gif'></a>";

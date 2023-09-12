@@ -10,8 +10,14 @@ String num = request.getParameter("num");
 String tname = request.getParameter("tname");
 //수정할 게시물을 얻어와서 DAO객체 생성 및 DB연결
 BoardDAO dao = new BoardDAO(application);
+BoardDTO dto = new BoardDTO();
 //기존 게시물의 내용을 읽어온다. <상세보기에서 생성한 selectview를 가져와>
-BoardDTO dto = dao.selectView(num,tname);
+if (tname.equals("free_board") || tname.equals("notice_board")){ 
+		dto = dao.selectView(num,tname);
+}
+else if (tname.equals("photo_board") || tname.equals("info_board")){
+		dto = dao.selectViewWithFile(num, tname);
+}
 //세션영역에 저장된 회원 아이디를 가져와서 문자열로 변환한다.
 String sessionId = session.getAttribute("UserId").toString();
 //로그인한 회원이 해당 게시물의 작성자인지 확인한다.
@@ -53,16 +59,37 @@ function validateForm(form) {
 				<%@ include file = "../include/space_leftmenu.jsp" %>
 			</div>
 			<div class="right_contents">
-				<div class="top_title">
-					<img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
-				</div>
+				<% 
+					if(tname.equals("notice_board")) { %>            
+				  	 	<img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
+				   	 	<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
+				<% }
+					else if(tname.equals("program_board")) {%>
+				    <img src="../images/space/sub02_title.gif" alt="프로그램일정" class="con_title" />
+			   		<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;프로그램일정<p>
+				<% }
+					else if(tname.equals("free_board")) { %>
+				   		<img src="../images/space/sub03_title.gif" alt="자유게시판" class="con_title" />
+				   		<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;자유게시판<p>
+				<% }
+					else if(tname.equals("photo_board")) {%>
+					    <img src="../images/space/sub04_title.gif" alt="사진게시판" class="con_title" />
+				   		<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;사진게시판<p>
+				<% }
+					else if(tname.equals("info_board")) {%>
+				    <img src="../images/space/sub05_title.gif" alt="정보자료실" class="con_title" />
+			   		<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;정보자료실<p>
+				<% 
+				}
+				%>
 				<div>
 <!-- 게시판 들어가는 부분 (시작) -->
-<form name="writeFrm" method="post" action="EditProcess.jsp"
+<form name="writeFrm" method="post" action="EditProcess.jsp" enctype="multipart/form-data"
       onsubmit="return validateForm(this);">
     <input type="hidden" name="num" value="<%=dto.getNum() %>" />
     <input type="hidden" name="tname" value="<%=tname %>" />
+    <input type="hidden" name="prevOfile" value="<%=dto.getOfile() %>" />
+	<input type="hidden" name="prevSfile" value="<%=dto.getSfile() %>" />
     <table class="table table-bordered" width="90%">
         <tr>
         	
@@ -70,6 +97,18 @@ function validateForm(form) {
             <td>
                 <input type="text" name="title" style="width: 90%;" value="<%=dto.getTitle() %>" />
             </td>
+        </tr>  
+        <tr>
+        <%
+        if(tname.equals("info_board")|| tname.equals("photo_board")){
+        %>
+         	<td>첨부파일</td>
+         	<td>
+         		<input type="file" name="ofile" /> <%=dto.getOfile() %>
+        	</td>
+        <%
+        }
+        %>
         </tr>
         <tr>
             <td>내용</td>
@@ -81,7 +120,7 @@ function validateForm(form) {
             <td colspan="2" align="center">
                 <button type="submit">작성 완료</button>
                 <button type="reset">다시 입력</button>
-                <button type="button" onclick="location.href='sub01list.jsp';">
+                <button type="button" onclick="location.href='sub01list.jsp?tname=<%=tname%>';">
                     목록 보기</button>
             </td>
         </tr>

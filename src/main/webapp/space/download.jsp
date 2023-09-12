@@ -7,9 +7,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-String saveDirectory = application.getRealPath("/Uploads");
-String saveFilename = request.getParameter("sName");
-String originalFilename = request.getParameter("oName");
+String saveDirectory = application.getRealPath("/Uploads/");
+String saveFilename = request.getParameter("sfile");
+String originalFilename = request.getParameter("ofile");
 
 try {
     // 파일을 찾아 입력 스트림 생성
@@ -51,8 +51,10 @@ try {
 }
 catch (FileNotFoundException e) {
     JSFunction.alertBack("파일을 찾을 수 없습니다.", out);
+    e.printStackTrace();
 }
 catch (Exception e) {
     JSFunction.alertBack("예외가 발생하였습니다.", out);
+    e.printStackTrace();
 }
 %>

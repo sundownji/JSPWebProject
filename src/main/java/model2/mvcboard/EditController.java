@@ -2,7 +2,7 @@ package model2.mvcboard;
 
 import java.io.IOException;
 
-import fileupload.FileUtil;
+import common.JSFunction;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,7 +10,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import utils.JSFunction;
+import model1.board.BoardDAO;
+import model1.board.BoardDTO;
+import utils.FileUtil;
+
 
 
 //요청명에 대한 매핑
@@ -30,8 +33,10 @@ public class EditController extends HttpServlet {
 		//일련번호를 받는다.
 		String idx = req.getParameter("idx");
 		//DAO객체를 생성한 후 기존 게시물의 내용을 가져온다.
-		MVCBoardDAO dao = new  MVCBoardDAO();
-		MVCBoardDTO dto = dao.selectView(idx);
+		BoardDAO dao = new BoardDAO(getServletContext());
+		BoardDTO dto = new BoardDTO();
+		dto = dao.selectView(idx,tname);
+		dto = dao.selectViewWithFile(idx, tname);
 		//DTO객체를 request영역에 저장한 후 포워드한다.
 		req.setAttribute("dto", dto);
 		req.getRequestDispatcher("/14MVCBoard/Edit.jsp").forward(req, resp);
@@ -64,7 +69,7 @@ public class EditController extends HttpServlet {
 		String idx = req.getParameter("idx");
 		String prevOfile = req.getParameter("prevOfile");
 		String prevSfile = req.getParameter("prevSfile");
-		
+		String tname = req.getParameter("tname");
 		String name = req.getParameter("name");
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
@@ -78,8 +83,8 @@ public class EditController extends HttpServlet {
 		String pass = (String)session.getAttribute("pass");
 		
 		//DTO에 저장
-		MVCBoardDTO dto = new MVCBoardDTO();
-		dto.setIdx(idx);
+		BoardDTO dto = new BoardDTO();
+		dto.setId(idx);
 		dto.setName(name);
 		dto.setTitle(title);
 		dto.setContent(content);
@@ -107,8 +112,14 @@ public class EditController extends HttpServlet {
 			dto.setSfile(prevSfile);
 		}
 		//DB에 수정 내용 반영
-		MVCBoardDAO dao = new MVCBoardDAO();
-		int result = dao.updatePost(dto);
+		BoardDAO dao = new BoardDAO(getServletContext());
+		int result = 0;
+		if (tname.equals("free_board") || tname.equals("notice_board")) {
+			result = dao.updateEdit(dto, name);
+		}
+		else if (tname.equals("photo_board") || tname.equals("info_board")) {
+			result= dao.updatewithFile(dto,tname);
+		}
 		dao.close();
 		
 		//성공 or 실패
