@@ -35,11 +35,14 @@ public class MainCtrl extends HttpServlet {
 		//자유게시판 최근게시판 4개 추출 (free_board)
 		param.put("tname", "free_board");
 		List<BoardDTO> free = dao.selectListPage(param);
-		
 		//request영역에 저장
 		req.setAttribute("notice", notice);
 		req.setAttribute("free", free);
 		
+		/*
+		 * param.put("tname", "photo_board"); List<BoardDTO> photo =
+		 * dao.selectListPage(param); req.setAttribute("photo", photo);
+		 */
 		//view로 포워드
 		req.getRequestDispatcher("../main/main.jsp").forward(req, resp);
 	}

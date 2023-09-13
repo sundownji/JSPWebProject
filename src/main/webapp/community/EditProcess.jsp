@@ -11,7 +11,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!--수정 처리 전 로그인 되었는지 확인한다.  -->
-<%@ include file = "./IsLoggedIn.jsp" %>
+<%@ include file = "../space/IsLoggedIn.jsp" %>
 
 <%
 String num = request.getParameter("num");
@@ -20,7 +20,6 @@ String content = request.getParameter("content");
 String tname =request.getParameter("tname");
 String prevOfile = request.getParameter("prevOfile"); 
 String prevSfile = request.getParameter("prevSfile");
-String virtualNum = request.getParameter("virtualNum");
 
 //DTO 객체에 수정할 내용을 저장한다.
 BoardDTO dto = new BoardDTO();
@@ -72,21 +71,15 @@ try{
 //DB연결, update해주고 자원해제순서로 진행
 //DAO객체 생성을 통해 오라클에 연결한다.
 BoardDAO dao = new BoardDAO(application);
-int affected = 0;
-//update 쿼리문을 실행하여 게시물을 수정한다.
-if (tname.equals("free_board") || tname.equals("notice_board")){
-	affected = dao.updateEdit(dto,tname);
-}
-else if (tname.equals("photo_board") || tname.equals("info_board")){
-	affected = dao.updatewithFile(dto, tname);
-}
+int affected = dao.updateEdit(dto,tname);
+
 //자원을 해제한다.
 dao.close();
 
 //1 아니면 0밖에 없음
 if (affected == 1){
 	/* 수정이 완료되면 수정된 내용을 확인하기 위해 주로 내용보기 페이지로 이동한다. */
-	response.sendRedirect("sub01view.jsp?tname="+tname+ "&num="+ dto.getNum()+"&virtualNum="+virtualNum);
+	response.sendRedirect("sub01view.jsp?tname="+tname+ "&num="+ dto.getNum());
 }
 else {
 	/*수정에 실패하면 경고창을 띄우고 뒤로 이동한다.*/

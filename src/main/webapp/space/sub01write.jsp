@@ -100,9 +100,9 @@ function validateForm(form) {
         </tr>
         <tr>
             <td colspan="2" align="center">
-                <button type="submit">작성 완료</button>
-                <button type="reset">다시 입력</button>
-                <button type="button" onclick="location.href='./sub01list.jsp?tname=<%=tname%>';">목록 보기</button>
+                <button type="submit" class="btn btn-light">작성 완료</button>
+                <button type="reset" class="btn btn-light">다시 입력</button>
+                <button type="button" class="btn btn-light" onclick="location.href='./sub01list.jsp?tname=<%=tname%>';">목록 보기</button>
             </td>
         </tr>
        

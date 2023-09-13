@@ -33,7 +33,7 @@ if(memberDTO.getPass() != null){
 	//이동 가능한.
 	request.setAttribute("UserPWD", memberDTO.getPass());
 	
-	JSFunction.alertLocation("회원님의 비밀번호는:"+ memberDTO.getPass() , "./login.jsp", out);
+	JSFunction.alertLocation("회원님의 비밀번호는:"+ memberDTO.getPass()+"입니다." , "./login.jsp", out);
 }
 
 else{

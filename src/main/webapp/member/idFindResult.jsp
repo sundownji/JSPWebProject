@@ -32,7 +32,7 @@ if(memberDTO.getId() != null){
 	//이동 가능한.
 	request.setAttribute("UserId", memberDTO.getId());
 	
-	JSFunction.alertLocation("회원님의 아이디는:"+ memberDTO.getId() , "./login.jsp", out);
+	JSFunction.alertLocation("회원님의 아이디는:"+ memberDTO.getId()+"입니다." , "./login.jsp", out);
 }
 
 else{

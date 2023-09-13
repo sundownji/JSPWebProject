@@ -98,10 +98,10 @@ public class BoardPage {
         /JSPWebProject/src/main/webapp/images/
          */
         if (pageTemp != 1) {
-            pagingStr += "<a href='" + reqUrl + "?tname="+tname+"&pageNum=1'><img src='../images/free-icon-left-arrow-271220.png'></a>";            
+            pagingStr += "<a href='" + reqUrl + "?tname="+tname+"&pageNum=1'><<</a>";            
             pagingStr += "&nbsp;";
             pagingStr += "<a href='" + reqUrl + "?tname="+tname+"&pageNum=" + (pageTemp - 1)
-                         + "'><img src='../images/paging2.gif'></a>";
+                         + "'><</a>";
         }
 
         /*
@@ -128,10 +128,10 @@ public class BoardPage {
         //마지막 페이지가 아닌 경우에만 다음블럭을 출력한다. 
         if (pageTemp <= totalPages) {
             pagingStr += "<a href='" + reqUrl +"?tname="+tname+"&pageNum=" + pageTemp
-                         + "'><img src='../images/paging3.gif'></a>";
+                         + "'>></a>";
             pagingStr += "&nbsp;";
             pagingStr += "<a href='" + reqUrl + "?tname="+tname+"&pageNum=" + totalPages
-                         + "'><img src='../images/paging4.gif'></a>";
+                         + "'>>></a>";
         }
 
         return pagingStr;

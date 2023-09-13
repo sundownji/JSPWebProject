@@ -43,17 +43,17 @@ String tname = request.getParameter("tname");
 					<input type="hidden" name="tname" value="<%= tname %>" />
 			 		<tr>
 				        <td align="center">
-				            <select name="searchField"> 
+				            <select name="searchField" style="width:50; height:30; "> 
 				                <option value="title">제목</option> 
 				                <option value="content" >내용</option>
 				            </select>
-				            <input type="text" name="searchWord" />
-				            <input type="submit" value="검색하기" class="btn btn-warning"/>
+				            <input type="text" name="searchWord" style="border:1px solid; width:400; height:30" />
+				            <input type="submit" value="검색하기" class="btn btn-light"  />
 				        </td>
 		    		</tr>   
     				</table>
     			</form>
-				    <table width="90%" class="table table-bordered table-hover">
+				    <table width="90%" class="table table-bordered ">
 				        <tr class="text-center" >
 				            <th width="10%">번호</th>
 				            <th width="50%">제목</th>
@@ -114,7 +114,7 @@ String tname = request.getParameter("tname");
 				        		if (tname.equals("notice_board")){
 									if (session.getAttribute("UserId")!=null && session.getAttribute("UserId").toString().equals("manager")){
 							%>
-						            <td><button type="button" onclick="location.href='sub01write.jsp?tname=<%=tname %>';" class="btn btn-danger" >글쓰기
+						            <td style="width:100"><button type="button" onclick="location.href='sub01write.jsp?tname=<%=tname %>';" class="btn btn-secondary" >글쓰기
 						                </button></td>
 					
 				            <%
@@ -123,7 +123,7 @@ String tname = request.getParameter("tname");
 						      		else{
 						
 						     %>
-				        		      <td style="widht:100%;"><button type="button" onclick="location.href='sub02write.jsp?tname=<%=tname %>';" class="btn btn-danger" >글쓰기
+				        		      <td style="widht:100;"><button type="button" onclick="location.href='sub02write.jsp?tname=<%=tname %>';" class="btn btn-secondary" >글쓰기
 				        		          </button></td>
 				                <%
 				        		}

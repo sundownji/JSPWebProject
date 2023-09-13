@@ -23,6 +23,7 @@
 String title = request.getParameter("title");
 String content = request.getParameter("content");
 String tname = request.getParameter("tname");
+System.out.println("나와."+tname);
 String sDirectory = application.getRealPath("/Uploads/");
 String ofile = request.getParameter("ofile"); 
 
@@ -68,7 +69,7 @@ for (Part filePart : fileParts) {
 BoardDAO dao = new BoardDAO(application);
 
 int iResult = 0;
-//기존과 같이 게시물 1개를 등록할때 사용..
+
 if (tname.equals("free_board") || tname.equals("notice_board")){
 	iResult = dao.insertWrite(dto,tname);
 }
@@ -76,17 +77,6 @@ else if (tname.equals("photo_board") || tname.equals("info_board")){
 	iResult = dao.insertWriteWithFile(dto,tname);
 }
 
-
-/* int iResult = 0;
-for(int i=1 ; i<=100 ; i++){
-
-	//만약 제목을 "안녕하세요"로 입력했다면...
-	//"..세요1", "..세요2" 와 같이 설정된다.  
-	
-	dto.setTitle(title + i);
-	iResult = dao.insertWrite(dto);
-}
-*/
 
 dao.close();
 

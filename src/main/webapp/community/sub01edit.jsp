@@ -2,23 +2,16 @@
 <%@page import="model1.board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="./IsLoggedIn.jsp" %>
+<%@ include file="../space/IsLoggedIn.jsp" %>
 <%@ include file="../include/global_head.jsp" %>
 <%
 //로그인이 되었다면 수정할 게시물의 일련번호를 파라미터로 받아오기
 String num = request.getParameter("num");
 String tname = request.getParameter("tname");
-String virtualNum = request.getParameter("virtualNum");
 //수정할 게시물을 얻어와서 DAO객체 생성 및 DB연결
 BoardDAO dao = new BoardDAO(application);
-BoardDTO dto = new BoardDTO();
-//기존 게시물의 내용을 읽어온다. <상세보기에서 생성한 selectview를 가져와>
-if (tname.equals("free_board") || tname.equals("notice_board")){ 
-		dto = dao.selectView(num,tname);
-}
-else if (tname.equals("photo_board") || tname.equals("info_board")){
-		dto = dao.selectViewWithFile(num, tname);
-}
+BoardDTO dto = dao.selectView(num,tname);
+
 //세션영역에 저장된 회원 아이디를 가져와서 문자열로 변환한다.
 String sessionId = session.getAttribute("UserId").toString();
 //로그인한 회원이 해당 게시물의 작성자인지 확인한다.
@@ -87,7 +80,6 @@ function validateForm(form) {
 <!-- 게시판 들어가는 부분 (시작) -->
 <form name="writeFrm" method="post" action="EditProcess.jsp" enctype="multipart/form-data"
       onsubmit="return validateForm(this);">
-    <input type="hidden" name="virtualNum" value="<%= virtualNum %>" />  
     <input type="hidden" name="num" value="<%=dto.getNum() %>" />
     <input type="hidden" name="tname" value="<%=tname %>" />
     <input type="hidden" name="prevOfile" value="<%=dto.getOfile() %>" />

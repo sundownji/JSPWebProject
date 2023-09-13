@@ -6,7 +6,6 @@
 
 <%@ include file="./viewCommon.jsp" %>
 
-<% System.out.println("나와..."+dto.getSfile()); %>
 <script>
 //삭제를 위해 폼값만 전달하는 녀석
 //게시물 삭제를 위한 Javascript 함수
@@ -138,17 +137,17 @@ function deletePost() {
 				if(session.getAttribute("UserId")!=null &&  
 					dto.getId().equals(session.getAttribute("UserId").toString())){
 				%>
-				     <button type="button"
-				             onclick="location.href='sub01edit.jsp?tname=<%=tname%>&num=<%= dto.getNum() %>';">
+				     <button type="button" class="btn btn-light"
+				             onclick="location.href='sub01edit.jsp?tname=<%=tname%>&num=<%= dto.getNum() %>&virtualNum=<%= virtualNum %>' ">
 				         수정하기</button>
 				         
 				     <!-- 삭제하기 버튼을 누르면 JS의 함수를 호출한다. 해당 함수는 
 				     submit()을 통해 폼값을 서버로 전송한다.  -->
-				     <button type="button" onclick="deletePost()">삭제하기</button> 
+				     <button type="button" onclick="deletePost()" class="btn btn-light">삭제하기</button> 
 				<%
 				}
 				%>
-                <button type="button" onclick="location.href='sub01list.jsp?tname=<%=tname %>';" class="btn btn-dark">
+                <button type="button" onclick="location.href='sub01list.jsp?tname=<%=tname %>';" class="btn btn-light">
                     목록 보기
                 </button>
             </td>

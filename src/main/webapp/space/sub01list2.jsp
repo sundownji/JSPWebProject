@@ -80,14 +80,7 @@ String tname = request.getParameter("tname");
     </tr>   
     </table>
     </form>
-    <table width="90%" class="table table-bordered ">
-        <tr class="text-center" >
-            <th width="10%">번호</th>
-            <th width="50%">제목</th>
-            <th width="15%">작성자</th>
-            <th width="10%">조회수</th>
-            <th width="15%">작성일</th>
-        </tr>
+   
 <%
 //컬렉션에 입력된 데이터가 없는지 확인한다. 
 if (boardLists.isEmpty()) {
@@ -115,21 +108,30 @@ else {
     	virtualNum = totalCount - (((pageNum - 1) * pageSize) 
     			+ countNum++);
 %>
-<tr align="center" >
-    <td><%= virtualNum %></td>
-    <td align="left"; > 
-       <p style= "width:230px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis"><a href="sub01view.jsp?tname=<%= tname %>&num=<%= dto.getNum() %>&virtualNum=<%=virtualNum%>"style="text-decoration:none;">
-        	<%= dto.getTitle() %></a></p> 
-    </td>
-    <td align="center"><%= dto.getId() %></td>
-    <td align="center"><%= dto.getVisitcount() %></td>
-    <td align="center"><%= dto.getPostdate() %></td>  
-</tr>
+<%
+if(tname.equals("photo_board")){
+%>
+<div class="card" style="width:230px">
+   <a href="sub01View.jsp?tname=<%=tname %>&num=<%= dto.getNum() %>">
+      <img class="card-img-top" src="../Uploads/<%=dto.getSfile()%>" alt="Card image" style="width:100%; height: 200px;">
+      <div class="card-body">
+         <ul class="img_board_list " style="padding: 0;">
+            <li class="card-title text-truncate"><%= dto.getTitle() %></li>
+            <li  class="card-text"><%= dto.getName() %></li>
+            <li><%= dto.getPostdate() %> </li>
+         </ul>
+      </div>
+   </a>
+   </div>
+
 
 <%
+}
     }
 }
 %>
+
+
     </table>
     <table class="table" width="90%">
         <tr align="right">
@@ -141,7 +143,7 @@ else {
         		if (tname.equals("notice_board")){
 					if (session.getAttribute("UserId")!=null && session.getAttribute("UserId").toString().equals("manager")){
 			%>
-		            <td style="width:100"><button type="button" onclick="location.href='sub01write.jsp?tname=<%=tname %>';" class="btn btn-secondary" >글쓰기
+		            <td ><button type="button" onclick="location.href='sub01write.jsp?tname=<%=tname %>';" class="btn btn-secondary" >글쓰기
 		                </button></td>
 	
             <%

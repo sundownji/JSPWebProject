@@ -19,6 +19,7 @@ public class BoardDTO {
 	private String ofile;
 	private String sfile;
 	private int downcount; //다운로드 카운트 int형
+	private String virtualNum ;
     
     //특별한 이유가 없다면 생성자는 선언하지 않는다. 
 
@@ -94,6 +95,12 @@ public class BoardDTO {
 	}
 	public void setDowncount(int downcount) {
 		this.downcount = downcount;
+	}
+	public String getVirtualNum() {
+		return virtualNum;
+	}
+	public void setVirtualNum(String virtualNum) {
+		this.virtualNum = virtualNum;
 	}
     
     

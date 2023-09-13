@@ -39,42 +39,24 @@ function deletePost() {
 
 		<div class="contents_box">
 			<div class="left_contents">
-				<%@ include file = "../include/space_leftmenu.jsp" %>
+				<%@ include file = "../include/community_leftmenu.jsp" %>
 			</div>
 			<div class="right_contents">
 				<div class="top_title">
 				<%
-				if (tname.equals("notice_board")){
-				%>
-					<img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
+				if (tname.equals("employee_board")){
+				%>				
+					<img src="../images/community/sub01_title.gif" alt="직원자료실" class="con_title" />
+					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;커뮤니티&nbsp;>&nbsp;직원자료실<p>
 				<%
 				}
-				else if (tname.equals("program_board")){
+				else if (tname.equals("protector_board")){
 				%>
-					<img src="../images/space/sub02_title.gif" alt="프로그램일정" class="con_title" />
+					<img src="../images/community/sub02_title.gif" alt="프로그램일정" class="con_title" />
 					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;프로그램일정<p>
 				<%
 				}
-				else if (tname.equals("free_board")) {
 				%>
-					<img src="../images/space/sub03_title.gif" alt="자유게시판" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;자유게시판<p>
-				<%
-				}
-				else if (tname.equals("photo_board")) {
-				%>
-					<img src="../images/space/sub04_title.gif" alt="사진게시판" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;사진게시판<p>
-				<%
-				}
-				else if (tname.equals("info_board")) {
-				%>
-					<img src="../images/space/sub05_title.gif" alt="정보자료실" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;정보자료실<p>
-				<%
-				}
-				%>	
 					</div>			
 				<div>
 <!-- 게시판 들어가는 부분 (시작) -->
@@ -106,7 +88,8 @@ function deletePost() {
             <td colspan="3" height="100">
             	<!-- 입력시 줄바꿈을 위한 엔터는 \r\n으로 입력되므로 
             	웹	브라우저에 출력시에는 <br>태그로 변경해야한다. -->
-                <%= dto.getContent().replace("\r\n", "<br/>") %> <% if (tname.equals("photo_board")){%>
+                <%= dto.getContent().replace("\r\n", "<br/>") %> 
+                <% if (tname.equals("photo_board")) { %>
                 <br />
                 <img style="width:100%; height:200px; margin-top:30px; margin-bottom:30px;" id="prvimg" src="../Uploads/<%=dto.getSfile() %>" alt="" />
                 <% }  %>
@@ -135,17 +118,17 @@ function deletePost() {
 				if(session.getAttribute("UserId")!=null &&  
 					dto.getId().equals(session.getAttribute("UserId").toString())){
 				%>
-				     <button type="button"
-				             onclick="location.href='sub01edit.jsp?tname=<%=tname%>&num=<%= dto.getNum() %>';">
+				     <button type="button" class="btn btn-light"
+				             onclick="location.href='sub01edit.jsp?tname=<%=tname%>&num=<%= dto.getNum() %>&virtualNum=<%= virtualNum %>;">
 				         수정하기</button>
 				         
 				     <!-- 삭제하기 버튼을 누르면 JS의 함수를 호출한다. 해당 함수는 
 				     submit()을 통해 폼값을 서버로 전송한다.  -->
-				     <button type="button" onclick="deletePost()">삭제하기</button> 
+				     <button type="button" class="btn btn-light" onclick="deletePost()">삭제하기</button> 
 				<%
 				}
 				%>
-                <button type="button" onclick="location.href='sub01list.jsp?tname=<%=tname %>';" class="btn btn-dark">
+                <button type="button" onclick="location.href='sub01.jsp?tname=<%=tname %>';" class="btn btn-light">
                     목록 보기
                 </button>
             </td>
